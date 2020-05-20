@@ -1,0 +1,14 @@
+.giv_badge {
+  display: inline-block;
+  padding: 0.125rem .5rem;
+  color: #fff;
+  border-radius: 4px;
+}
+
+.giv_badge_success {
+  background-color: #209d63;
+}
+
+.woocommerce-order-data .giv_badge {
+  margin-top: .5rem;
+}
