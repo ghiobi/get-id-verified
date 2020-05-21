@@ -173,8 +173,8 @@ class Get_Id_Verified {
 		$this->loader->add_action( 'profile_update', $plugin_admin, 'process_verification_user_profile' );
 		$this->loader->add_action( 'manage_edit-shop_order_columns', $plugin_admin, 'add_to_column_header' );
 		$this->loader->add_action( 'manage_shop_order_posts_custom_column', $plugin_admin, 'add_order_column_content' );
-		$this->loader->add_action( 'woocommerce_admin_order_data_after_shipping_address', $plugin_admin, 'add_user_is_verified_on_order_details' );
-
+		$this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'register_meta_boxes' );
+		
 	}
 
 	/**

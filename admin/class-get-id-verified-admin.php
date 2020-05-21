@@ -100,6 +100,10 @@ class Get_Id_Verified_Admin {
 
 	}
 
+	public function register_meta_boxes() {
+		add_meta_box( 'giv-government-id-verification', __('Government Id'), [ $this, 'add_user_order_verification_meta_box'], 'shop_order', 'side', 'low' );
+	}
+
 	public function add_edit_user_profile_form($profileuser) {
 		include __DIR__ . '/partials/edit_user_profile.php';
 	}
@@ -141,27 +145,14 @@ class Get_Id_Verified_Admin {
 			return;
 		}
 		
-		$this->display_user_is_verified($order->get_user_id());
+		include __DIR__ . '/partials/user_is_verified.php';
 	}
 
-	public function add_user_is_verified_on_order_details($order) {
-		echo '<h3>' .__('Government Id') . '</h3>';
-
-		if ($order->get_user() === false) {
-			$image = $order->get_meta(GIV_IMAGE_UPLOADED_ID);
-			echo '<img style="max-width: 100%" src="' . Get_Id_Verified_Utils::get_image_url_path($image) . '">';
-			return;
-		}
-
-		$this->display_user_is_verified($order->get_user_id());
-	}
-
-	private function display_user_is_verified($user_id) {
-		if (Get_Id_Verified_Utils::user_is_verified($user_id)) {
-			echo '<div class="giv_badge giv_badge_success">' . __('Verified') . '</div>';
-		} else {
-			echo '<a href="' . get_edit_user_link($user_id) . '#giv_edit_profile" target="_new">' . __('Verify User') . '</a>';
-		}
+	public function add_user_order_verification_meta_box() {
+		global $post;
+		$order = wc_get_order($post->ID);
+		
+		include __DIR__ . '/partials/order_verification_meta_box.php';
 	}
 	
 }

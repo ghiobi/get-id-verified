@@ -18,7 +18,11 @@
         <?php if (!Get_Id_Verified_Utils::user_get_image_id($profileuser->ID)): ?>
           No Image
         <?php else: ?>
-          <img style="max-width: 250px;" src="<?= Get_Id_Verified_Utils::get_image_url_path(Get_Id_Verified_Utils::user_get_image_id($profileuser->ID)) ?>">
+          <div style="max-width: 250px;">
+            <?php
+              $url = Get_Id_Verified_Utils::get_image_url_path(Get_Id_Verified_Utils::user_get_image_id($profileuser->ID));
+              include __DIR__ . '/image_preview.php'; ?>
+          </div>
         <?php endif; ?>
       </td>
     </tr>

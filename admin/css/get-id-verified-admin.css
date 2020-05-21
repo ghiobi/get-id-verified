@@ -9,6 +9,16 @@
   background-color: #209d63;
 }
 
+.giv_image_preview {
+  display: block;
+}
+
+.giv_image_preview img {
+  display: block;
+  max-width: 100%;
+  vertical-align: middle;
+}
+
 .woocommerce-order-data .giv_badge {
   margin-top: .5rem;
 }
