@@ -1,4 +1,4 @@
-<?php if(!giv_user_get_image_id()): ?>
+<?php if(!Get_Id_Verified_Utils::user_get_image_id()): ?>
   <div id="giv_checkout">
     <h3>
       <?= __('Upload Government Id') ?>
