@@ -23,13 +23,20 @@
  */
 class Get_Id_Verified_Rest {
 
+  /**
+   * Registers the routes for the controllers below.
+   * 
+   * @since     1.0.0
+   */
   public function register_routes() {
     register_rest_route( 'giv/v1', 'image/(?P<id>[^\s]+)', [ 'methods' => 'GET', 'callback' => [$this, 'retrieve_id_image'] ]);
     register_rest_route( 'giv/v1', 'image', [ 'methods' => 'POST', 'callback' => [$this, 'upload_id_image'] ]);
   }
 
   /**
-   *  To get the image.
+   * Rest controller for retrieving the image.
+   * 
+   * @since     1.0.0
    */
   public function retrieve_id_image($data) {
     if (!$data['id']) {
@@ -38,10 +45,17 @@ class Get_Id_Verified_Rest {
 
     $tmp = $data->get_param('tmp') ? true : false;
 
+    /**
+     * All temporary images don't need to be authenticated.
+     */
     if (!$tmp) {
       if (!is_user_logged_in()) {
         return $this->throw_rest_error(401);
       }
+      /**
+       * When the use is not administrator and the user is accessing someone elses' 
+       * image. If it's not their image, an authentication error is thrown.
+       */
       if (!current_user_can('administrator') && Get_Id_Verified_Utils::user_get_image_id() !== $data['id']) {
         return $this->throw_rest_error(401);
       }
@@ -63,6 +77,13 @@ class Get_Id_Verified_Rest {
     exit();
   }
 
+  /**
+   * Rest controller for uploading an image. Initially the image is stored in a
+   * temporary folder. Once it is saved it will be moved to the upload folder
+   * and only authenticated users may see their image.
+   * 
+   * @since     1.0.0
+   */
   public function upload_id_image() {
     $target_dir = Get_Id_Verified_Utils::get_upload_temp_dir();
 
@@ -102,10 +123,16 @@ class Get_Id_Verified_Rest {
     return $this->throw_rest_error(500, "Sorry, there was an error uploading your file.");
   }
 
+  /**
+   * Compresses the image down to 500kb and moves the original image 
+   * to the output location.
+   * 
+   * @since     1.0.0
+   */
   private function convert_n_compress_image($original, $output, $ext){
     $max = 500000; // 500kb
 
-    if (filesize($original) <= $max && $ext === 'ext') {
+    if (filesize($original) <= $max) {
       return move_uploaded_file($original, $output);
     }
 
@@ -137,6 +164,11 @@ class Get_Id_Verified_Rest {
     return 1;
   }
   
+  /**
+   * Throws a rest error.
+   * 
+   * @since     1.0.0
+   */
   private function throw_rest_error($code, $message = '') {
     return new WP_Error( 'rest_invalid', $message, ['status' => $code ]);
   }
