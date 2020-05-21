@@ -96,7 +96,6 @@ class Get_Id_Verified_Public {
 		 * class.
 		 */
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/get-id-verified-public.js', array( 'jquery' ), $this->version, false );
-		wp_localize_script( $this->plugin_name, 'GIV_PLUGIN', ['site_url' => site_url()]);
 
 	}
 
