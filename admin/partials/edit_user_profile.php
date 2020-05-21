@@ -1,4 +1,4 @@
-<h2 id="giv_edit_profile"><?= __('Government Id Verification', $this->plugin_name) ?></h2>
+<h2 id="giv_edit_profile"><?= __('Id Verification', $this->plugin_name) ?></h2>
 
 <table class="form-table" role="presentation">
   <tbody>

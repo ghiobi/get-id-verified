@@ -107,7 +107,7 @@ class Get_Id_Verified_Admin {
 	 */
 	public function register_meta_boxes() {
 
-		add_meta_box( 'giv-government-id-verification', __('Government Id', $this->plugin_name), [ $this, 'add_user_order_verification_meta_box'], 'shop_order', 'side', 'low' );
+		add_meta_box( 'giv-id-verification', __('Id Verification', $this->plugin_name), [ $this, 'add_user_order_verification_meta_box'], 'shop_order', 'side', 'low' );
 
 	}
 
@@ -142,7 +142,7 @@ class Get_Id_Verified_Admin {
 	 * @since    1.0.0
 	 */
 	public function add_to_column_header($columns) {
-		$columns['giv_column'] = __('Government Id', $this->plugin_name);
+		$columns['giv_column'] = __('Id Verification', $this->plugin_name);
 
 		return $columns;
 	}

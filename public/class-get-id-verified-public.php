@@ -114,7 +114,7 @@ class Get_Id_Verified_Public {
 	 * @since    1.0.0
 	 */
 	public function process_checkout_validation() {
-		if ($this->is_verified_or_checking()) {
+		if ($this->user_is_verified_or_has_image()) {
 			return;
 		}
 
@@ -129,7 +129,7 @@ class Get_Id_Verified_Public {
 	 * @since    1.0.0
 	 */
 	public function process_checkout_order( $order_id ) {
-		if ($this->is_verified_or_checking()) {
+		if ($this->user_is_verified_or_has_image()) {
 			return;
 		}
 
@@ -162,7 +162,7 @@ class Get_Id_Verified_Public {
 	 *
 	 * @since    1.0.0
 	 */
-	private function is_verified_or_checking() {
+	private function user_is_verified_or_has_image() {
 		return Get_Id_Verified_User::verified() || Get_Id_Verified_User::image();
 	}
 
@@ -196,6 +196,7 @@ class Get_Id_Verified_Public {
 		}
 
 		Get_Id_Verified_User::set_image($image);
+
 		rename(
 			Get_Id_Verified_Utils::get_image_abs_temp_path($image), 
 			Get_Id_Verified_Utils::get_image_abs_path($image)
@@ -209,7 +210,10 @@ class Get_Id_Verified_Public {
 	 */
 	private function validate_temp($image) {
 		if (!$image || !file_exists(Get_Id_Verified_Utils::get_image_abs_temp_path($image))) {
-			wc_add_notice( __( 'Please upload a government id.', $this->plugin_name), 'error' );
+
+			$error = apply_filters('giv_add_validation_notice', __( 'Please upload a verification id.', $this->plugin_name));
+			wc_add_notice($error, 'error' );
+			
 			return 0;
 		}
 		return 1;
@@ -222,7 +226,11 @@ class Get_Id_Verified_Public {
 	 */
 	public function add_notice_for_verified() {
 		if (!Get_Id_Verified_User::verified()) {
-			wc_add_notice(__("Please allow 24 hours for government id verification to be complete. And your order will be processed.", $this->plugin_name), 'notice');
+			$notice = apply_filters('giv_add_checkout_notice', __("Please allow 24 hours for verification id to be complete and your order will be processed.", $this->plugin_name));
+			
+			if ($notice) {
+				wc_add_notice($notice, 'notice');
+			}
 		}
 	}
 

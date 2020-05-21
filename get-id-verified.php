@@ -14,7 +14,7 @@
  *
  * @wordpress-plugin
  * Plugin Name:       Get Id Verified
- * Description:       This plugin contains implementations to get government id verification with woocommerce.
+ * Description:       This plugin contains implementations to get id verification with woocommerce.
  * Version:           1.0.0
  * Author:            Laurendy Lam
  * Author URI:        laurendylam.com

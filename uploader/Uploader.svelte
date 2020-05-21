@@ -63,7 +63,7 @@
 		</div>
 	{:else}
 		<div class="giv_preview">
-			<img class="giv_preview-image" src="{source}" alt="Government Id">
+			<img class="giv_preview-image" src="{source}" alt="Id Verification">
 			<button class="giv_preview-edit" type="button" on:click={onEdit}>Edit</button>
 		</div>
 	{/if}
