@@ -8,7 +8,7 @@ License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
 == Description ==
 
-A woocommerce plugin that allows merchants to verify the customers by 
+A Woocommerce plugin that allows merchants to verify the customers by 
 their uploaded verification id.
 
 == Features ==
@@ -16,6 +16,8 @@ their uploaded verification id.
 - Persist verifications for returning customers.
 - Quick guest checkout.
 - Secure storage of identification images.
+- Supports jpg, jpeg, and png images uploads.
+- Zero dependencies
 
 Future features:
 - Add Option for uploads to be optional. (Please contact me to speed this up +1).
@@ -25,6 +27,7 @@ Future features:
 
 Requirements.
 - Requires GD2 PHP extension.
+- Woocommerce
 
 This section describes how to install the plugin and get it working.
 
