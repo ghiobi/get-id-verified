@@ -180,7 +180,11 @@ class Get_Id_Verified {
 		$this->loader->add_action( 'manage_edit-shop_order_columns', $plugin_admin, 'add_to_column_header' );
 		$this->loader->add_action( 'manage_shop_order_posts_custom_column', $plugin_admin, 'add_order_column_content' );
 		$this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'register_meta_boxes' );
-		
+		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_plugin_admin_menu' );
+
+		// Add Settings link to the plugin
+		$this->loader->add_filter( 'plugin_action_links_' . plugin_basename( plugin_dir_path( __DIR__ ) . $this->plugin_name . '.php' ), $plugin_admin, 'add_action_links' );
+	
 	}
 
 	/**
