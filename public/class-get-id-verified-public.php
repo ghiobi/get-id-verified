@@ -100,7 +100,7 @@ class Get_Id_Verified_Public {
 	}
 
 	public function add_upload_form_at_checkout( $checkout ) {
-			include __DIR__ . '/partials/upload_at_checkout.php';
+			include 'partials/upload_at_checkout.php';
 	}
 
 	public function process_checkout_validation() {
@@ -141,7 +141,7 @@ class Get_Id_Verified_Public {
 	}
 
 	public function add_upload_form_in_account_details() {
-		include __DIR__ . '/partials/account_details.php';
+		include 'partials/account_details.php';
 	}
 
 	public function process_account_edit_form($id) {

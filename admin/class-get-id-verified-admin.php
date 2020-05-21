@@ -99,29 +99,51 @@ class Get_Id_Verified_Admin {
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/get-id-verified-admin.js', array( 'jquery' ), $this->version, false );
 
 	}
-
+	
+	/**
+	 * Register the meta box in the shop order page.
+	 *
+	 * @since    1.0.0
+	 */
 	public function register_meta_boxes() {
+
 		add_meta_box( 'giv-government-id-verification', __('Government Id'), [ $this, 'add_user_order_verification_meta_box'], 'shop_order', 'side', 'low' );
+
 	}
 
+	/**
+	 * Displays the partial profile form for the user.
+	 *
+	 * @since    1.0.0
+	 */
 	public function add_edit_user_profile_form($profileuser) {
 		include __DIR__ . '/partials/edit_user_profile.php';
 	}
 
+	/**
+	 * Process the profile form for the user.
+	 *
+	 * @since    1.0.0
+	 */
 	public function process_verification_user_profile($user_id) {
 		if (!is_admin()) {
 			return;
 		}
 
-		if (!isset($_POST[GIV_USER_IS_VERIFIED_CHECKBOX])) {
-			update_user_meta($user_id, GIV_USER_IS_VERIFIED, false);
-		} else {
+		if (isset($_POST[GIV_USER_IS_VERIFIED_CHECKBOX])) {
 			update_user_meta($user_id, GIV_USER_IS_VERIFIED, true);
+		} else {
+			update_user_meta($user_id, GIV_USER_IS_VERIFIED, false);
 		}
 	}
 		
 	/**
-	 * Add ID Verified Column to Orders Page
+	 * Displays the column header on the orders page.
+	 */
+	/**
+	 * Register the meta box in the shop order.
+	 *
+	 * @since    1.0.0
 	 */
 	public function add_to_column_header($columns) {
 		$columns['giv_column'] = __('Government Id');
@@ -130,7 +152,9 @@ class Get_Id_Verified_Admin {
 	}
 
 	/**
-	 * Add Verified or Not Verified to ID Verified Column
+	 * Displays the verified or not in the column on the orders page.
+	 *
+	 * @since    1.0.0
 	 */
 	public function add_order_column_content($column) {
 		if ('giv_column' !== $column) {
@@ -145,14 +169,20 @@ class Get_Id_Verified_Admin {
 			return;
 		}
 		
-		include __DIR__ . '/partials/user_is_verified.php';
+		include 'partials/user_is_verified.php';
 	}
 
+	/**
+	 * Displays the meta box in the shop order.
+	 *
+	 * @since    1.0.0
+	 */
 	public function add_user_order_verification_meta_box() {
 		global $post;
 		$order = wc_get_order($post->ID);
 		
-		include __DIR__ . '/partials/order_verification_meta_box.php';
+		include 'partials/order_verification_meta_box.php';
 	}
+
 	
 }
