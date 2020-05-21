@@ -99,10 +99,20 @@ class Get_Id_Verified_Public {
 
 	}
 
+	/**
+	 * Displays the upload widget at the checkout form.
+	 *
+	 * @since    1.0.0
+	 */
 	public function add_upload_form_at_checkout( $checkout ) {
 			include 'partials/upload_at_checkout.php';
 	}
 
+	/**
+	 * Processes the checkout form validation of the id.
+	 *
+	 * @since    1.0.0
+	 */
 	public function process_checkout_validation() {
 		if ($this->is_verified_or_checking()) {
 			return;
@@ -115,6 +125,12 @@ class Get_Id_Verified_Public {
 		}
 	}
 
+	/**
+	 * Post process the checkout form and attaches the image to the
+	 * user or order depending on if it's a express checkout.
+	 *
+	 * @since    1.0.0
+	 */
 	public function process_checkout_order( $order_id ) {
 		if ($this->is_verified_or_checking()) {
 			return;
@@ -123,9 +139,16 @@ class Get_Id_Verified_Public {
 		$order = wc_get_order($order_id);
 		$image = sanitize_text_field($_POST[GIV_IMAGE_UPLOAD_NAME]);
 
+		/**
+		 * If the user is uploading the image for the first time
+		 * or is creating an account, attach the image to their user.
+		 */
 		if (is_user_logged_in() || (($_POST['createaccount'] ?? 0) === '1')) {
 			update_user_meta($order->get_user_id(), GIV_IMAGE_UPLOADED_ID, $image);
 		} else {
+			/**
+			 * For express checkout, attach the image to the order.
+			 */
 			$order->update_meta_data(GIV_IMAGE_UPLOADED_ID, $image);
 			$order->save();
 		}
@@ -136,14 +159,30 @@ class Get_Id_Verified_Public {
 		);
 	}
 
+	/**
+	 * If the user is authenticated, and they are verified or already have an uploaded.
+	 * Used for processing at checkout. They may only change the id in their account page.
+	 *
+	 * @since    1.0.0
+	 */
 	private function is_verified_or_checking() {
 		return Get_Id_Verified_Utils::user_is_verified() || Get_Id_Verified_Utils::user_get_image_id();
 	}
 
+	/**
+	 * Display the upload widget in the account details page.
+	 *
+	 * @since    1.0.0
+	 */
 	public function add_upload_form_in_account_details() {
 		include 'partials/account_details.php';
 	}
 
+	/**
+	 * Processes the image in the account details page.
+	 *
+	 * @since    1.0.0
+	 */
 	public function process_account_edit_form($id) {
 		if (Get_Id_Verified_Utils::user_is_verified()) {
 			return;
@@ -166,9 +205,11 @@ class Get_Id_Verified_Public {
 			Get_Id_Verified_Utils::get_image_abs_path($image)
 		);
 	}
-		
+
 	/**
 	 * Displays a notice at the checkout to ensure the user get verified.
+	 *
+	 * @since    1.0.0
 	 */
 	public function add_notice_for_verified() {
 		if (!Get_Id_Verified_Utils::user_is_verified()) {
