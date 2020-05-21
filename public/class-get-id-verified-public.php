@@ -119,10 +119,7 @@ class Get_Id_Verified_Public {
 		}
 
 		$image = $_POST[GIV_IMAGE_UPLOAD_NAME];
-
-		if (!$image || !file_exists(Get_Id_Verified_Utils::get_image_abs_temp_path($image))) {
-			wc_add_notice( __( 'Please upload a government id.' ), 'error' );
-		}
+		$this->validate_temp($image);
 	}
 
 	/**
@@ -188,14 +185,13 @@ class Get_Id_Verified_Public {
 			return;
 		}
 		
-		$image = sanitize_text_field($_POST[GIV_IMAGE_UPLOAD_NAME]);
+		$image = sanitize_text_field($_POST[GIV_IMAGE_UPLOAD_NAME] ?? '');
 
 		if ($image === Get_Id_Verified_User::image()) {
 			return;
 		}
 
-		if (!$image || !file_exists(Get_Id_Verified_Utils::get_image_abs_temp_path($image))) {
-			wc_add_notice( __( 'Please upload a government id.' ), 'error' );
+		if (!$this->validate_temp($image)) {
 			return;
 		}
 
@@ -207,13 +203,26 @@ class Get_Id_Verified_Public {
 	}
 
 	/**
+	 * Validates the temporary uploaded image.
+	 *
+	 * @since    1.0.0
+	 */
+	private function validate_temp($image) {
+		if (!$image || !file_exists(Get_Id_Verified_Utils::get_image_abs_temp_path($image))) {
+			wc_add_notice( __( 'Please upload a government id.', $this->plugin_name), 'error' );
+			return 0;
+		}
+		return 1;
+	}
+
+	/**
 	 * Displays a notice at the checkout to ensure the user get verified.
 	 *
 	 * @since    1.0.0
 	 */
 	public function add_notice_for_verified() {
 		if (!Get_Id_Verified_User::verified()) {
-			wc_add_notice(__("Please allow 24 hours for government id verification to be complete. And your order will be processed."), 'notice');
+			wc_add_notice(__("Please allow 24 hours for government id verification to be complete. And your order will be processed.", $this->plugin_name), 'notice');
 		}
 	}
 

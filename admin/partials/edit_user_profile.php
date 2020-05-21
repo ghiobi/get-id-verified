@@ -1,10 +1,10 @@
-<h2 id="giv_edit_profile"><?= __('Government Id Verification') ?></h2>
+<h2 id="giv_edit_profile"><?= __('Government Id Verification', $this->plugin_name) ?></h2>
 
 <table class="form-table" role="presentation">
   <tbody>
     <tr>
       <th>
-        <?= __('Verified') ?>
+        <?= __('Verified', $this->plugin_name) ?>
       </th>
       <td>
         <input type="checkbox" name="<?= GIV_USER_IS_VERIFIED_CHECKBOX ?>" value="1" <?= Get_Id_Verified_User::verified($profileuser->ID) ? 'checked' : '' ?>>
