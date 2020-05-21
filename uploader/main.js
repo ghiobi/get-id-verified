@@ -1,4 +1,4 @@
-import App from './App.svelte';
+import Uploader from './Uploader.svelte';
 
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -7,7 +7,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	if (target && target.length) {
 		target = target[0];
 
-		new App({
+		new Uploader({
 			target,
 			props: {
 				source: target.getAttribute('source'),

@@ -10,8 +10,8 @@
 	};
 
 	const getSubmitBtn = (target) => {
-		const formEl = target.closest('form');
-		return formEl ? formEl.querySelector('button[type="submit"]') : null;
+		const form = target.closest('form');
+		return form ? form.querySelector('button[type="submit"]') : null;
 	};
 
 	const onImageSelect = ({ target }) => {
@@ -38,7 +38,7 @@
 			uploading = true;
 			submit && submit.setAttribute('disabled', 'disabled');
 		} else {
-			alert('Please select a file.')
+			alert('Please select a file.');
 		}
 		
     xhr.onreadystatechange = () => {
@@ -53,36 +53,47 @@
 	};
 </script>
 
-<div class="container">
+<div class="giv_container">
 	{#if !source}
-		<input type="file" accept="image/jpeg,image/png" on:change={onImageSelect}>
+		<div class="giv_uploader">
+			{#if uploading}
+				<div class="giv_spinner"></div>
+			{/if}
+			<input type="file" accept="image/jpeg,image/png" on:change={onImageSelect}>
+		</div>
 	{:else}
-		<div class="preview">
-			<img class="preview-image" src="{source}" alt="Government Id">
-			<button class="preview-edit" type="button" on:click={onEdit}>Edit</button>
+		<div class="giv_preview">
+			<img class="giv_preview-image" src="{source}" alt="Government Id">
+			<button class="giv_preview-edit" type="button" on:click={onEdit}>Edit</button>
 		</div>
 	{/if}
 
-	{#if uploading}
-  	<div class="spinner"></div>
-	{/if}
   <input type="hidden" name="giv_upload_image_name" value="{value}">
 </div>
 
 
 <style>
-	.container {
-		max-width: 26rem;
+	.giv_container {
 		position: relative;
 		margin-bottom: 1rem;
 	}
 
-	.preview {
+	@media screen and (min-width: 768px) {
+		.giv_container { 
+			max-width: 26rem;
+		}
+	}
+
+	.giv_uploader {
+		display: relative;
+	}
+
+	.giv_preview {
 		display: inline-block;
 		position: relative;
 	}
 
-	.preview-edit {
+	.giv_preview-edit {
 		position: absolute;
 		top: 5px;
 		right: 5px;
@@ -94,11 +105,11 @@
 		line-height: initial;
 	}
 
-	.preview-image {
+	.giv_preview-image {
 		max-width: 100%;
 	}
 
-	.spinner::before {
+	.giv_spinner::before {
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
 		display: inline-block;
@@ -113,8 +124,9 @@
 		content: "\f110";
 		-webkit-animation: fa-spin 0.75s linear infinite;
 		animation: fa-spin 0.75s linear infinite;
-		font-size: 2rem;
-		position: absolute;
-		left: 45%;
+    font-size: 1.5rem;
+    position: absolute;
+    right: 0;
+    top: -6px;
 	}
 </style>
