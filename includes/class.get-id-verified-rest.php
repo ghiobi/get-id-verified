@@ -56,7 +56,7 @@ class Get_Id_Verified_Rest {
        * When the use is not administrator and the user is accessing someone elses' 
        * image. If it's not their image, an authentication error is thrown.
        */
-      if (!current_user_can('administrator') && Get_Id_Verified_Utils::user_get_image_id() !== $data['id']) {
+      if (!current_user_can('administrator') && Get_Id_Verified_User::image() !== $data['id']) {
         return $this->throw_rest_error(401);
       }
     }

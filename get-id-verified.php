@@ -51,6 +51,7 @@ define('GIV_CRON', 'giv_cron_hook');
  * The code for utils shared across all code in this plugin.
  */
 require_once plugin_dir_path( __FILE__ ) . 'includes/class.get-id-verified-utils.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/class.get-id-verified-user.php';
 
 /**
  * The code that runs during plugin activation.

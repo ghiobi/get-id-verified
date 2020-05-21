@@ -45,27 +45,6 @@ class Get_Id_Verified_Utils {
     }
     return get_site_url() . "/wp-json/giv/v1/image/${id}?_wpnonce=" . wp_create_nonce( 'wp_rest' ) . ($tmp ? 'tmp=true' : '');
   }
-
-  public static function user_is_verified($user_id = null) {
-    $user_id = $user_id ? $user_id : get_current_user_id();
-
-    if (!$user_id) {
-      return false;
-    }
-
-    $verified = get_user_meta($user_id, GIV_USER_IS_VERIFIED, true);
-    return $verified ? $verified : false;
-  }
-
-  public static function user_get_image_id($user_id = null) {
-    $user_id =  $user_id ? $user_id : get_current_user_id();
-
-    if (!$user_id) {
-      return null;
-    }
-
-    return get_user_meta($user_id, GIV_IMAGE_UPLOADED_ID, true);
-  }
   
 	public static function rimraf($dir) {
 		$files = array_diff(scandir($dir), ['.','..']);

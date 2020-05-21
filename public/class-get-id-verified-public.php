@@ -143,8 +143,8 @@ class Get_Id_Verified_Public {
 		 * If the user is uploading the image for the first time
 		 * or is creating an account, attach the image to their user.
 		 */
-		if (is_user_logged_in() || (($_POST['createaccount'] ?? 0) === '1')) {
-			update_user_meta($order->get_user_id(), GIV_IMAGE_UPLOADED_ID, $image);
+		if ($order->get_user() !== false) {
+			Get_Id_Verified_User::set_image($image, $order->get_user_id());
 		} else {
 			/**
 			 * For express checkout, attach the image to the order.
@@ -166,7 +166,7 @@ class Get_Id_Verified_Public {
 	 * @since    1.0.0
 	 */
 	private function is_verified_or_checking() {
-		return Get_Id_Verified_Utils::user_is_verified() || Get_Id_Verified_Utils::user_get_image_id();
+		return Get_Id_Verified_User::verified() || Get_Id_Verified_User::image();
 	}
 
 	/**
@@ -184,13 +184,13 @@ class Get_Id_Verified_Public {
 	 * @since    1.0.0
 	 */
 	public function process_account_edit_form($id) {
-		if (Get_Id_Verified_Utils::user_is_verified()) {
+		if (Get_Id_Verified_User::verified()) {
 			return;
 		}
 		
 		$image = sanitize_text_field($_POST[GIV_IMAGE_UPLOAD_NAME]);
 
-		if ($image === Get_Id_Verified_Utils::user_get_image_id()) {
+		if ($image === Get_Id_Verified_User::image()) {
 			return;
 		}
 
@@ -199,7 +199,7 @@ class Get_Id_Verified_Public {
 			return;
 		}
 
-		update_user_meta(get_current_user_id(), GIV_IMAGE_UPLOADED_ID, $image);
+		Get_Id_Verified_User::set_image($image);
 		rename(
 			Get_Id_Verified_Utils::get_image_abs_temp_path($image), 
 			Get_Id_Verified_Utils::get_image_abs_path($image)
@@ -212,7 +212,7 @@ class Get_Id_Verified_Public {
 	 * @since    1.0.0
 	 */
 	public function add_notice_for_verified() {
-		if (!Get_Id_Verified_Utils::user_is_verified()) {
+		if (!Get_Id_Verified_User::verified()) {
 			wc_add_notice(__("Please allow 24 hours for government id verification to be complete. And your order will be processed."), 'notice');
 		}
 	}

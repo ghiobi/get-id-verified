@@ -130,11 +130,7 @@ class Get_Id_Verified_Admin {
 			return;
 		}
 
-		if (isset($_POST[GIV_USER_IS_VERIFIED_CHECKBOX])) {
-			update_user_meta($user_id, GIV_USER_IS_VERIFIED, true);
-		} else {
-			update_user_meta($user_id, GIV_USER_IS_VERIFIED, false);
-		}
+		Get_Id_Verified_User::set_verified(isset($_POST[GIV_USER_IS_VERIFIED_CHECKBOX]), $user_id);
 	}
 		
 	/**
@@ -184,5 +180,4 @@ class Get_Id_Verified_Admin {
 		include 'partials/order_verification_meta_box.php';
 	}
 
-	
 }
