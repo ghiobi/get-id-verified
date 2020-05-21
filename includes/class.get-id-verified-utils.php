@@ -22,30 +22,60 @@
  * @author     Laurendy Lam <lamlaurendy@gmail.com>
  */
 class Get_Id_Verified_Utils {
-    
+
+  /**
+   * Geths the upload directory path.
+   *
+   * @since      1.0.0
+   */
   public static function get_upload_dir() {
     return wp_upload_dir()['basedir'] . '/'. GIV_IMAGE_FOLDER;
   }
 
+  /**
+   * Gets the upload temp directory path.
+   *
+   * @since      1.0.0
+   */
   public static function get_upload_temp_dir() {
     return Get_Id_Verified_Utils::get_upload_dir() . "/.tmp";
   }
 
+  /**
+   * Gets the image absolute path by id.
+   *
+   * @since      1.0.0
+   */
   public static function get_image_abs_path($id) {
     return Get_Id_Verified_Utils::get_upload_dir() . "/{$id}.jpg";
   }
 
+  /**
+   * Gets the image absolute temporary path by id.
+   *
+   * @since      1.0.0
+   */
   public static function get_image_abs_temp_path($id) {
     return Get_Id_Verified_Utils::get_upload_temp_dir() . "/{$id}.jpg";
   }
 
+  /**
+   * Gets the image url path.
+   *
+   * @since      1.0.0
+   */
   public static function get_image_url_path($id, $tmp = false) {
     if (!$id) {
       return '';
     }
     return get_site_url() . "/wp-json/giv/v1/image/${id}?_wpnonce=" . wp_create_nonce( 'wp_rest' ) . ($tmp ? 'tmp=true' : '');
   }
-  
+
+  /**
+   * Recursively remove a directory.
+   *
+   * @since      1.0.0
+   */
 	public static function rimraf($dir) {
 		$files = array_diff(scandir($dir), ['.','..']);
 
@@ -55,13 +85,24 @@ class Get_Id_Verified_Utils {
 
 		return rmdir($dir);
   }
-  
+
+  /**
+   * Removes the temporary upload directory.
+   *
+   * @since      1.0.0
+   */
   public static function remove_upload_temp_dir() {
     if (file_exists(Get_Id_Verified_Utils::get_upload_temp_dir())) {
       Get_Id_Verified_Utils::rimraf(Get_Id_Verified_Utils::get_upload_temp_dir());
 		}
   }
 
+  /**
+   * Creates the upload directory and access a .htaccess file to
+   * deny all direct access.
+   *
+   * @since      1.0.0
+   */
   public static function create_upload_dir() {
     $upload_dir = Get_Id_Verified_Utils::get_upload_dir();
 
@@ -69,6 +110,9 @@ class Get_Id_Verified_Utils {
 			mkdir($upload_dir, 0777, true);
     }
     
+    /**
+     * Don't remove this.
+     */
 		file_put_contents($upload_dir . '/.htaccess', 'deny from all');
   }
 }

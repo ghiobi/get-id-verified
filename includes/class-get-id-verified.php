@@ -150,6 +150,12 @@ class Get_Id_Verified {
 
 	}
 
+	/**
+	 * Define the rest api for this plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
 	private function define_rest() {
 		$plugin_rest = new Get_Id_Verified_Rest();
 
