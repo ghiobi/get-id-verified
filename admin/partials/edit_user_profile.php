@@ -21,7 +21,7 @@
           <div style="max-width: 250px;">
             <?php
               $url = Get_Id_Verified_Utils::get_image_url_path(Get_Id_Verified_User::image($profileuser->ID));
-              include __DIR__ . '/image_preview.php'; ?>
+              include 'image_preview.php'; ?>
           </div>
         <?php endif; ?>
       </td>

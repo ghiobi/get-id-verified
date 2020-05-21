@@ -4,6 +4,6 @@
       <?= __('Upload Government Id') ?>
     </h3>
 
-    <?php include __DIR__ . '/image_uploader.php'; ?>
+    <?php include 'image_uploader.php'; ?>
   </div>
 <?php endif; ?>

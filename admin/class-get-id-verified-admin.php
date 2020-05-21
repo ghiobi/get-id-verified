@@ -117,7 +117,7 @@ class Get_Id_Verified_Admin {
 	 * @since    1.0.0
 	 */
 	public function add_edit_user_profile_form($profileuser) {
-		include __DIR__ . '/partials/edit_user_profile.php';
+		include 'partials/edit_user_profile.php';
 	}
 
 	/**
