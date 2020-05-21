@@ -1,7 +1,7 @@
 (function( $ ) {
 	'use strict';
 	$(() => {
-		const url = '/wp-json/giv/v1/image';
+		const url = GIV_PLUGIN.site_url + '/wp-json/giv/v1/image';
 		const upload = $('#giv_upload_input');
 		const image = $('#giv_upload_img');
 		const preview = $('#giv_preview');

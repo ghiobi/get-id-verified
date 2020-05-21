@@ -95,8 +95,8 @@ class Get_Id_Verified_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/get-id-verified-public.js', array( 'jquery' ), $this->version, false );
+		wp_localize_script( $this->plugin_name, 'GIV_PLUGIN', ['site_url' => site_url()]);
 
 	}
 
@@ -146,6 +146,10 @@ class Get_Id_Verified_Public {
 	}
 
 	public function process_account_edit_form($id) {
+		if (Get_Id_Verified_Utils::user_is_verified()) {
+			return;
+		}
+		
 		$image = sanitize_text_field($_POST[GIV_IMAGE_UPLOAD_NAME]);
 
 		if ($image === Get_Id_Verified_Utils::user_get_image_id()) {

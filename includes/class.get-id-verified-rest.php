@@ -89,7 +89,7 @@ class Get_Id_Verified_Rest {
       return $this->throw_rest_error(400, "Sorry, only JPG, JPEG, & PNG files are allowed.");
     }
     
-    $id = wp_generate_uuid4();
+    $id = wp_generate_password(64, false);
 
     if ($this->convert_n_compress_image(
       $_FILES["giv_upload_image"]["tmp_name"], 
