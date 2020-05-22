@@ -34,7 +34,7 @@ This section describes how to install the plugin and get it working.
 
 e.g.
 
-1. Down the zip file from the [release](./releases) page above.
+1. Down the zip file from the [release](https://github.com/ghiobi/get-id-verified/releases) page above.
 1. Upload `get-id-verified.zip` in the Plugins section of WordPress.
 2. Activate the plugin through the 'Plugins' menu in WordPress.
 
