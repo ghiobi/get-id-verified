@@ -1,7 +1,11 @@
 <script>
+	// The full source image url.
 	export let source = '';
+	// The id of the image.
 	export let value = '';
+	// The action url in which the form will POST to.
 	export let action = '';
+	// The status of the upload.
 	export let uploading = false;
 
 	const onEdit = () => {

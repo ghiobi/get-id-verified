@@ -212,7 +212,7 @@ class Get_Id_Verified_Public {
 		if (!$image || !file_exists(Get_Id_Verified_Utils::get_image_abs_temp_path($image))) {
 
 			$error = apply_filters('giv_add_validation_notice', __( 'Please upload a verification id.', $this->plugin_name));
-			wc_add_notice($error, 'error' );
+			wc_add_notice($error, 'error');
 			
 			return 0;
 		}
