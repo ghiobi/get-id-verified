@@ -68,7 +68,11 @@ class Get_Id_Verified_Utils {
     if (!$id) {
       return '';
     }
-    return Get_Id_Verified_Utils::get_image_rest_url("/${id}?_wpnonce=" . wp_create_nonce( 'wp_rest' ) . ($tmp ? 'tmp=true' : ''));
+
+    return Get_Id_Verified_Utils::get_image_rest_url($id, [
+      '_wpnonce' => wp_create_nonce( 'wp_rest' ),
+      'tmp' => $tmp ? 'true' : 'false'
+    ]);
   }
 
   /**
@@ -76,8 +80,16 @@ class Get_Id_Verified_Utils {
    *
    * @since      1.0.1
    */
-  public static function get_image_rest_url($url = '') {
-    return get_rest_url(null, 'giv/v1/image' . $url);
+  public static function get_image_rest_url($url = '', $params = []) {
+    $base = get_rest_url(null, 'giv/v1/image' . ($url ? "/${url}" : ''));
+
+    if (empty($params)) {
+      return $base;
+    }
+
+    $symbol = strpos($base, '?rest_route=') === false ? '?' : '&';
+
+    return $base .= $symbol . implode("&", array_map(function ($key, $value) { return "${key}=${value}"; }, $params));
   }
 
   /**

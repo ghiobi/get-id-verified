@@ -43,7 +43,7 @@ class Get_Id_Verified_Rest {
       return $this->throw_rest_error(403);
     }
 
-    $tmp = $data->get_param('tmp') ? true : false;
+    $tmp = $data->get_param('tmp') === 'true' ? true : false;
 
     /**
      * All temporary images don't need to be authenticated.

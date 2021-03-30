@@ -15,7 +15,7 @@
  * @wordpress-plugin
  * Plugin Name:       Get Id Verified
  * Description:       This plugin contains implementations to get id verification with woocommerce.
- * Version:           1.0.0
+ * Version:           1.0.1
  * Author:            Laurendy Lam
  * Author URI:        laurendylam.com
  * License:           GPL-2.0+
@@ -34,7 +34,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'GET_ID_VERIFIED_VERSION', '1.0.0' );
+define( 'GET_ID_VERIFIED_VERSION', '1.0.1' );
 
 /**
  * Plugin Constants
