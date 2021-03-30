@@ -40,7 +40,7 @@ class Get_Id_Verified_User {
   }
 
   /**
-   * Returns the image id.
+   * Returns the image id of the current user.
    *
    * @since      1.0.0
    */
@@ -55,7 +55,7 @@ class Get_Id_Verified_User {
   }
 
   /**
-   * Sets the image id.
+   * Sets the image id to a user.
    *
    * @since      1.0.0
    */

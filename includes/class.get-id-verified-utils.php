@@ -71,7 +71,7 @@ class Get_Id_Verified_Utils {
 
     return Get_Id_Verified_Utils::get_image_rest_url($id, [
       '_wpnonce' => wp_create_nonce( 'wp_rest' ),
-      'tmp' => $tmp ? 'true' : 'false'
+      'tmp' => $tmp ? 'true' : ''
     ]);
   }
 
@@ -88,8 +88,18 @@ class Get_Id_Verified_Utils {
     }
 
     $symbol = strpos($base, '?rest_route=') === false ? '?' : '&';
+    $paramsMap = [];
 
-    return $base .= $symbol . implode("&", array_map(function ($key, $value) { return "${key}=${value}"; }, $params));
+    foreach ($params as $key => $value) {
+      if ($value !== '') {
+        $keyEncoded = urlencode($key);
+        $valueEncoded = urlencode($value);
+        
+        array_push($paramsMap, "${keyEncoded}=${valueEncoded}");
+      }
+    }
+
+    return $base .= $symbol . implode("&", $paramsMap);
   }
 
   /**
