@@ -60,7 +60,7 @@ class Get_Id_Verified_Utils {
   }
 
   /**
-   * Gets the image url path.
+   * Gets the image url path with image id parameter.
    *
    * @since      1.0.0
    */
@@ -68,7 +68,16 @@ class Get_Id_Verified_Utils {
     if (!$id) {
       return '';
     }
-    return get_site_url() . "/wp-json/giv/v1/image/${id}?_wpnonce=" . wp_create_nonce( 'wp_rest' ) . ($tmp ? 'tmp=true' : '');
+    return Get_Id_Verified_Utils::get_image_rest_url("/${id}?_wpnonce=" . wp_create_nonce( 'wp_rest' ) . ($tmp ? 'tmp=true' : ''));
+  }
+
+  /**
+   * Gets the base image url path.
+   *
+   * @since      1.0.1
+   */
+  public static function get_image_rest_url($url = '') {
+    return get_rest_url(null, 'giv/v1/image' . $url);
   }
 
   /**

@@ -48,7 +48,7 @@
     xhr.onreadystatechange = () => {
 			if(xhr.readyState == 4 && xhr.status == 200) {
 				value = JSON.parse(xhr.response);
-				source = `${action}/${value}?tmp=true`;
+				source = `${action}/${value}${action.includes(`?rest_route=`) ? '&': '?'}tmp=true`;
 			}
 
 			submit && submit.removeAttribute('disabled');
